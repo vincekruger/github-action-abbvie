@@ -1,0 +1,40 @@
+name: Lint
+
+on:
+    pull_request:
+        types: [opened, reopened, synchronize, edited]
+
+jobs:
+    lint-lwc:
+        name: Lint Lightning Web Components
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 20.x
+            - run: npm install -g yarn
+            - name: Setup Yarn in Node
+              uses: actions/setup-node@v4
+              with:
+                  cache: 'yarn' # uses the system node, which was updated prior.
+            - run: yarn install --frozen-lockfile
+            - name: Lint Lightning Web Components
+              run: yarn run lint:lwc
+
+    lint-styles:
+        name: Lint Styles
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 20.x
+            - run: npm install -g yarn
+            - name: Setup Yarn in Node
+              uses: actions/setup-node@v4
+              with:
+                  cache: 'yarn' # uses the system node, which was updated prior.
+            - run: yarn install --frozen-lockfile
+            - name: Stylelint
+              run: yarn run lint:styles
