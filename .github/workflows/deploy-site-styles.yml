@@ -4,8 +4,8 @@ on:
     workflow_dispatch:
         inputs:
             environment:
-                description: 'Environment to deploy to'
-                required: true
+                type: environment
+                description: Select the sandbox environment
 
 jobs:
     build-deploy:
