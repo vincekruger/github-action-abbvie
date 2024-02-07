@@ -8,8 +8,8 @@ on:
                 description: Select the sandbox environment
 
 jobs:
-    build-deploy:
-        name: Build & Deploy Styles
+    build:
+        name: Build Styles
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
@@ -26,3 +26,9 @@ jobs:
             - run: yarn install --frozen-lockfile
             - name: Build Styles
               run: yarn run dev:postcss:production
+
+    deploy:
+        name: Deploy Styles
+        needs: build
+        runs-on: ubuntu-latest
+
